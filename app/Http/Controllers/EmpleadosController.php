@@ -83,9 +83,15 @@ class EmpleadosController extends Controller
      * @param  \App\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Empleados $empleados)
+    public function update(Request $request,  $id)
     {
-        //
+       $DatosEmpleado = request()->except('_token','_method','Subir');
+
+       Empleados::where('id','=',$id)->update($DatosEmpleado);
+
+       $empleado = Empleados::findOrFail($id);
+
+        return view('empleados.edit',compact('empleado'));
     }
 
     /**

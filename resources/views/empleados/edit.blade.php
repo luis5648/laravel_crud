@@ -12,9 +12,10 @@
   </head>
   <body>
 
-<form class="container form-group" action="{{ url('/empleados')}}" method="post" enctype="multipart/form-data">
+<form class="container form-group" action="{{ url('/empleados/'. $empleado->id)}}" method="post" enctype="multipart/form-data">
 
 {{csrf_field()}} <!--Esta linea sirve como llave para poder acceder al método storage -->
+{{method_field('PATCH')}}
     <label for="Nombre" class="form-control">Nombre</label>
     <input type="text" name="Nombre" id="nombre" class="form-control"value="{{$empleado->Nombre}}">
 <br/>
@@ -34,7 +35,7 @@
     <input class="form-control"type="file" name="Foto" id="Foto" required>
 <br>
 
-    <input class="form-control btn btn-success"type="submit" name="Subir" value="Subir">
+    <input class="form-control btn btn-success"type="submit"  value="Subir">
 
 </form>
 
