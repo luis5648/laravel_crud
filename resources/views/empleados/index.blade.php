@@ -32,7 +32,7 @@
               <tr>
                  <td>{{$loop->iteration}}</td>
                  <td>
-                     <img src="{{url($empleado->Foto)}}" alt="foto de perfil" width="30px"height="30px">
+                     <img src="{{url(asset('storage').'/'.$empleado->Foto)}}" alt="foto de perfil" width="50">
                  </td>
                 <!-- <td>{{$empleado->Foto}}</td>-->
                  <td>{{$empleado->Nombre}}</td>
@@ -57,6 +57,8 @@
               @endforeach
           </tbody>
       </table>
+
+  <a href="{{url('/empleados/create')}}" class="btn btn-primary m-3">Añadir empleados</a>
   </div>
 
     <!-- Optional JavaScript -->

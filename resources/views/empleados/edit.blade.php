@@ -31,6 +31,8 @@
     <input class="form-control"type="email" name="Email" id="Email" value="{{$empleado->Email}}" >
 
 <br/>
+
+    <img src="{{url(asset('storage').'/'.$empleado->Foto)}}" alt="foto de perfil" width="50">
     <label class="form-control"for="Foto">Foto</label>
     <input class="form-control"type="file" name="Foto" id="Foto" required>
 <br>

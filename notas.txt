@@ -1,0 +1,4 @@
+Comandos de laravel
+php artisan serve - servidor local de laravel
+php artisan route:list - Muestra las rutas mapeadas a funciones del controlador
+php artisan storage:link - sirve para motrar el storage en el navegador
