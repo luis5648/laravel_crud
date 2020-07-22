@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Empleados;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EmpleadosController extends Controller
 {
@@ -15,9 +16,8 @@ class EmpleadosController extends Controller
     public function index()
     {
         //
-        $datos['empleados']=Empleados::paginate(5);
-        return view('empleados.index',$datos);
-
+        $datos['empleados'] = Empleados::paginate(5);
+        return view('empleados.index', $datos);
     }
 
     /**
@@ -39,15 +39,18 @@ class EmpleadosController extends Controller
     public function store(Request $request)
     {
         //
-        $DatosEmpleado = request()->except('_token','Subir');//elimina el string del token del json
+        $DatosEmpleado = request()->except('_token', 'Subir'); //elimina el string del token del json
 
         //foto:
-        if($request->hasFile('Foto')){
-            $DatosEmpleado['Foto']=$request->file('Foto')->store('uploads','public');//almacena el dato de la foto en storage/app/public/uploads
+        if ($request->hasFile('Foto')) {
+            $DatosEmpleado['Foto'] = $request->file('Foto')->store('uploads', 'public'); //almacena el dato de la foto en storage/app/public/uploads
+
         }
 
         Empleados::insert($DatosEmpleado); //inserta a la base de datos
-        return response()->json($DatosEmpleado);
+    //this is for debug    return response()->json($DatosEmpleado);
+        return redirect('empleados');
+
     }
 
     /**
@@ -67,13 +70,12 @@ class EmpleadosController extends Controller
      * @param  \App\Empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function edit($id )
+    public function edit($id)
     {
         //
         $empleado = Empleados::findOrFail($id);
 
-        return view('empleados.edit',compact('empleado'));
-
+        return view('empleados.edit', compact('empleado'));
     }
 
     /**
@@ -85,13 +87,22 @@ class EmpleadosController extends Controller
      */
     public function update(Request $request,  $id)
     {
-       $DatosEmpleado = request()->except('_token','_method','Subir');
+        $DatosEmpleado = request()->except('_token', '_method', 'Subir');
 
-       Empleados::where('id','=',$id)->update($DatosEmpleado);
 
-       $empleado = Empleados::findOrFail($id);
+        if ($request->hasFile('Foto')) {
 
-        return view('empleados.edit',compact('empleado'));
+            $empleado = Empleados::findOrFail($id);
+
+            Storage::delete('public/' . $empleado->Foto);
+
+            $DatosEmpleado['Foto'] = $request->file('Foto')->store('uploads', 'public');
+        }
+        Empleados::where('id', '=', $id)->update($DatosEmpleado);
+
+        $empleado = Empleados::findOrFail($id);
+
+        return view('empleados.edit', compact('empleado'));
     }
 
     /**
@@ -103,7 +114,13 @@ class EmpleadosController extends Controller
     public function destroy($id)
     {
         //
-        Empleados::destroy($id);
+
+        $empleado = Empleados::findOrFail($id);
+
+        if (Storage::delete('public/' . $empleado->Foto)) {
+
+            Empleados::destroy($id);
+        }
         return redirect('empleados');
     }
 }
