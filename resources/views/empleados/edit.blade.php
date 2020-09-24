@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <style media="screen">
+      .lbl{
+        background-color: #d7f0d1;
+      }
+    </style>
 </head>
 
 <body>
@@ -46,26 +52,26 @@
         {{csrf_field()}}
         <!--Esta linea sirve como llave para poder acceder al método storage -->
         {{method_field('PATCH')}}
-        <label for="Nombre" class="form-control">Nombre</label>
+        <label for="Nombre" class="form-control lbl">Nombre</label>
         <input type="text" name="Nombre" id="nombre" class="form-control" value="{{$empleado->Nombre}}">
         <br />
-        <label class="form-control" for="ApellidoPaterno">Apellido Paterno</label>
+        <label class="form-control lbl" for="ApellidoPaterno">Apellido Paterno</label>
         <input type="text" class="form-control" name="ApellidoPaterno" id="ApellidoPaterno"
             value="{{$empleado->ApellidoPaterno}}">
 
         <br />
-        <label class="form-control" for="ApellidoMaterno">Apellido Materno</label>
+        <label class="form-control lbl" for="ApellidoMaterno">Apellido Materno</label>
         <input class="form-control" type="text" name="ApellidoMaterno" id="ApellidoMaterno"
             value="{{$empleado->ApellidoMaterno}}">
 
         <br />
-        <label class="form-control" for="Email">Correo electronico</label>
+        <label class="form-control lbl" for="Email">Correo electronico</label>
         <input class="form-control" type="email" name="Email" id="Email" value="{{$empleado->Email}}">
 
         <br />
 
         <img src="{{url(asset('storage').'/'.$empleado->Foto)}}" alt="foto de perfil" width="50">
-        <label class="form-control" for="Foto">Foto</label>
+        <label class="form-control lbl" for="Foto">Foto</label>
         <input class="form-control" type="file" name="Foto" id="Foto" required>
         <br>
 
