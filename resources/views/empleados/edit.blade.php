@@ -52,7 +52,7 @@
         {{csrf_field()}}
         <!--Esta linea sirve como llave para poder acceder al método storage -->
         {{method_field('PATCH')}}
-        <label for="Nombre" class="form-control lbl">Nombre</label>
+        <label for="nombre" class="form-control lbl">Nombre</label>
         <input type="text" name="Nombre" id="nombre" class="form-control" value="{{$empleado->Nombre}}">
         <br />
         <label class="form-control lbl" for="ApellidoPaterno">Apellido Paterno</label>
